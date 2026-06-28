@@ -1,0 +1,22 @@
+{
+  "name": "Claude Code Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
+  ],
+  "containerEnv": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+      ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post_create.sh"
+}
