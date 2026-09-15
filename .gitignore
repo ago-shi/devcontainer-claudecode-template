@@ -1,0 +1,11 @@
+# Claude Code の machine-local 設定（個人ごとの許可ルール等）
+.claude/settings.local.json
+
+# セッション記憶（.memory/）はリポジトリで共有する前提でコミット対象。
+# パブリックリポジトリで利用する場合は、次の行のコメントを外して除外すること。
+# .memory/
+
+# シークレット・環境変数ファイル
+.env
+.env.*
+!.env.example

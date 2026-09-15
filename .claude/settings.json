@@ -1,4 +1,38 @@
 {
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "WebFetch",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git rev-list *)",
+      "Bash(git ls-remote *)",
+      "Bash(git remote get-url origin)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git mv *)",
+
+      "Bash(gh auth status)",
+      "Bash(gh issue *)",
+      "Bash(gh label *)",
+
+      "Bash(glab auth status)",
+      "Bash(glab issue *)",
+      "Bash(glab label *)",
+
+      "Bash(command -v *)"
+    ]
+  },
   "enabledPlugins": {
     "security-guidance@claude-plugins-official": true
   }
