@@ -90,6 +90,7 @@ VS Code で「Reopen in Container」を選択します。コンテナのビル�
 | 技術解説の記録 | `record-knowledge` スキル — `docs/knowledge/` に重複チェックしてから記録 |
 | 改善点・技術的負債の登録 | `file-issue` スキル — remote に応じて `gh` / `glab` で issue 作成 |
 | セッション中断 | `/suspend` — `.memory/` に記録し、commit & push |
+| テンプレートの更新 | `/update-template <取り込み元ディレクトリ>` — 別プロジェクトで運用したファイルと比較し、汎用化して取り込む |
 
 スキルは作業内容に応じて Claude Code が自律的に使い、コマンド（`/name`）はユーザーが起動します。
 
@@ -103,7 +104,8 @@ VS Code で「Reopen in Container」を選択します。コンテナのビル�
 │   ├── commands/
 │   │   ├── resume.md             # /resume: 作業再開（メモリ読込）
 │   │   ├── review-doc.md         # /review-doc: ドキュメントレビュー委譲
-│   │   └── suspend.md            # /suspend: 作業中断（メモリ記録・commit&push）
+│   │   ├── suspend.md            # /suspend: 作業中断（メモリ記録・commit&push）
+│   │   └── update-template.md    # /update-template: 他プロジェクトの成果をテンプレートへ取り込む
 │   ├── skills/
 │   │   ├── file-issue/
 │   │   │   └── SKILL.md          # 改善点を GitHub / GitLab issue に登録する手順
