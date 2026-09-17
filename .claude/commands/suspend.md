@@ -8,15 +8,30 @@ allowed-tools: Bash(git status:*), Bash(git add:*), Bash(git commit:*), Bash(git
 ## 1. ワークスペースのメモリに記録
 
 CLAUDE.md「セッション記憶（Memory）」のルールに従い、今回の会話で生じた次の情報を
-**リポジトリルート直下の `.claude/memory/`** に書き込む（`~/.claude/projects/...` には書かない）。
+**リポジトリルート直下の `.memory/`** に書き込む（`~/.claude/projects/...` には書かない）。
 
 - 確定した決定事項・方針（`project` / decisions）
 - ユーザーから受け取ったフィードバック・好み（`feedback`）
 - 作業状況・次回の再開ポイント・未決論点（`project`）
 
+### 記憶の種類と保存先
+
+| 種類 | 内容 | 例 |
+|---|---|---|
+| `user` | ユーザーの役割・好み・知識レベル | `user_profile.md` |
+| `feedback` | 指摘・承認された進め方 | `feedback_xxx.md` |
+| `project` | 作業状況・決定事項・未決論点 | `project_xxx.md` |
+| `reference` | 外部リソースへのポインタ | `reference_xxx.md` |
+
 手順:
-1. `.claude/memory/MEMORY.md` を読み、既存の記憶ファイルを確認する。
+1. `.memory/MEMORY.md` を読み、既存の記憶ファイルを確認する（無ければ新規作成する）。
 2. 既存ファイルに該当があれば**更新**、無ければ新規作成（重複を作らない）。相対日付は絶対日付に変換する。
+   - **更新は「追記」ではなく「書き換え」**。完了した作業の時系列ログを積み上げない
+     （作業の経緯は git 履歴と `.steering/` が正本）。残すのは**現在の状態・持ち越し・未決論点**だけ。
+   - 恒久的な規約・構成の実態が混ざっていたら `docs/` へ移す（`docs/` が正本）。
+     メモリに残すのは「決めた経緯・進捗・好み」に限る。
+   - **1 ファイルは目安 2,000 文字以内**。超えたら上の 2 点を見直す合図。
+   - `MEMORY.md` は**索引**。1 行 1 メモリ・短いフックのみで、本文を書かない。
 3. 新規ファイルを作った場合は `MEMORY.md` にインデックス行（`- [Title](file.md) — hook`）を1行追加する。
 4. 書き込み先パスが `~/.claude` を含まないことを確認する。
 
@@ -29,18 +44,16 @@ CLAUDE.md「セッション記憶（Memory）」のルールに従い、今回�
    作業内容に即した名前を付ける（例 `feature/<topic>` / `docs/<topic>` / `chore/wip-YYYYMMDD`）。
    既に feature ブランチ上ならそのまま使う。
 3. 変更をステージ（`git add -A`）してコミットする。
-   - メッセージはリポジトリの慣例（Conventional Commits・日本語）に合わせ、今回の作業を簡潔に要約する。
-   - 末尾に必ず次のトレーラーを付ける:
-     ```
-     Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-     ```
+   - メッセージはリポジトリの慣例（`git log` で確認。`docs/development-guidelines.md` に Git 規約があればそれに従う）に合わせ、今回の作業を簡潔に要約する。
+   - 末尾に必ず Co-Authored-By トレーラーを付ける。モデル名は**現在使用中のモデル**とする
+     （ハードコードしない。例: `Co-Authored-By: Claude <現在のモデル名> <noreply@anthropic.com>`）。
 4. `git push -u origin <ブランチ名>` でリモートへ push する。
 5. 失敗時（push 拒否・コンフリクト等）は無理に上書きせず、状況をそのまま報告する。
 
 ## 3. 報告
 
 - 記録／更新したメモリファイル
-- 作成・使用したブランチ名、コミットハッシュ、push 結果（リモートURL / MR 作成リンクがあれば）
+- 作成・使用したブランチ名、コミットハッシュ、push 結果（リモートURL / PR・MR 作成リンクがあれば）
 
 > 注意: machine-local な設定（例 `.claude/settings.local.json`）が変更に含まれる場合は、
 > コミット対象に含めてよいか判断に迷えば、その旨を報告に明記する（独断で除外しない・含めない、を曖昧にしない）。

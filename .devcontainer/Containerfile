@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/devcontainers/base:bookworm
+
+# プロジェクトで必要な OS パッケージはここに追加する
+# （python3 は post_create.sh の glab バージョン取得で使用）
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       curl ca-certificates python3 \
+    && rm -rf /var/lib/apt/lists/*
